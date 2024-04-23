@@ -3,43 +3,57 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const products = [
-  { title: 'Cabbage', isFruit: false, id: 1 },
-  { title: 'Garlic',  isFruit: false, id: 2 },
-  { title: 'Apple',   isFruit: true,  id: 3 }
-]
+interface SquareProps {
+  index: number;
+  symbol: string;
+  value: string;
+  onClick: (index: number) => void;
+}
 
-export default function MyApp() {
-  const [count, setCount] = useState(0);
+interface BoardState {
+  squares: any[];
+  symbol: string;
+}
 
+function Square(props: SquareProps) {
   function handleClick() {
-    setCount(count + 1);
+    props.onClick(props.index);
   }
 
-  const listItems = products.map(p => 
-    <li
-      key={p.id}
-      style={{
-        color: p.isFruit ? 'magenta' : 'darkgreen'
-      }}
-    >
-      {p.title}
-    </li>
-  );
-
   return (
-    <div>
-      <ul>{listItems}</ul>
-      <MyButton count = {count} onClick = {handleClick}/>
-      <MyButton count = {count} onClick = {handleClick}/>
-    </div>
+    <button
+      className="square"
+      onClick={handleClick}
+    >
+      {props.value}
+    </button>
   );
 }
 
-function MyButton({count, onClick}: any) {
-    return (
-      <button onClick={onClick}>
-        Clicked {count} times!
-      </button>
-    )
+export default function Board() {
+  const [state, setState] = useState<BoardState>({ squares: Array(9).fill(null), symbol: 'X' });
+
+  function handleClick(index: number): void  {
+    setState({squares: state.squares.with(index, state.symbol), symbol: state.symbol == 'X' ? 'O' : 'X'});
+  }
+
+  return (
+    <>
+      <div className="board-row">
+        <Square index={0} value={state.squares[0]} onClick={handleClick} symbol={state.symbol}/>
+        <Square index={1} value={state.squares[1]} onClick={handleClick} symbol={state.symbol}/>
+        <Square index={2} value={state.squares[2]} onClick={handleClick} symbol={state.symbol}/>
+      </div>
+      <div className="board-row">
+        <Square index={3} value={state.squares[3]} onClick={handleClick} symbol={state.symbol}/>
+        <Square index={4} value={state.squares[4]} onClick={handleClick} symbol={state.symbol}/>
+        <Square index={5} value={state.squares[5]} onClick={handleClick} symbol={state.symbol}/>
+      </div>
+      <div className="board-row">
+        <Square index={6} value={state.squares[6]} onClick={handleClick} symbol={state.symbol}/>
+        <Square index={7} value={state.squares[7]} onClick={handleClick} symbol={state.symbol}/>
+        <Square index={8} value={state.squares[8]} onClick={handleClick} symbol={state.symbol}/>
+      </div>
+    </>
+  );
 }
