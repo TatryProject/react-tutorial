@@ -1,2 +1,2 @@
 # react-tutorial
-Exploring React using the tutorial provided by react.dev
+Exploring React using the Tic-Tac-Toe Tutorial provided by react.dev
