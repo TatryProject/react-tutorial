@@ -77,6 +77,16 @@ body {
   width: 34px;
 }
 
+.history-button {
+  padding: 0.5rem 1rem;
+  margin-bottom: .5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
 .board-row:after {
   clear: both;
   content: '';
